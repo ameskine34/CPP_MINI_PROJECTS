@@ -6,9 +6,8 @@
 /*   By: ameskine <ameskine@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 15:23:05 by ameskine          #+#    #+#             */
-/*   Updated: 2026/01/02 15:23:53 by ameskine         ###   ########.fr       */
+/*   Updated: 2026/01/03 13:30:51 by ameskine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
-
+#include "Contact.hpp"

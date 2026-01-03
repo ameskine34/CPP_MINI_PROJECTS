@@ -6,7 +6,7 @@
 /*   By: ameskine <ameskine@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 15:23:17 by ameskine          #+#    #+#             */
-/*   Updated: 2026/01/03 13:03:46 by ameskine         ###   ########.fr       */
+/*   Updated: 2026/01/03 13:22:18 by ameskine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void PhoneBook::printColumn(std::string str) const {
 void    PhoneBook::SEARCH()
 {
     int i = 0;
+    std::string input;
     if (this->_contactcount == 0) {
         std::cout << "Phonebook is empty." << std::endl;
         return;
@@ -104,5 +105,24 @@ void    PhoneBook::SEARCH()
         i++;        
     }
     std::cout << "Enter the index : ";
-    std::cin << 
+    if (!(getline(std::cin, input)))
+        return ;
+    if (input.length() == 1 && input[0] >= '0' && input[0] <= '7')
+    {
+        int index = input[0] - '0';
+        if (index < _contactcount && index < 8)
+        {
+            std::cout << std::setw(10) << i << "|";
+            printColumn(PhoneBook::_contact[index].getFirstName());
+            std::cout << "|";
+            printColumn(PhoneBook::_contact[index].getLastName());
+            std::cout << "|";
+            printColumn(PhoneBook::_contact[index].getNickname());
+            std::cout << std::endl;    
+        }
+        else
+            std::cout << "Error: Contact does not exist." << std::endl;
+    }
+    else
+        std::cout << "Error: Invalid index." << std::endl;
 }
