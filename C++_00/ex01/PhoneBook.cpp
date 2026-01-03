@@ -6,7 +6,7 @@
 /*   By: ameskine <ameskine@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 15:23:17 by ameskine          #+#    #+#             */
-/*   Updated: 2026/01/03 13:22:18 by ameskine         ###   ########.fr       */
+/*   Updated: 2026/01/03 15:18:07 by ameskine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void    PhoneBook::ADD()
     std::cout << "The contact is added successfully!" << std::endl;
 }
 
-void PhoneBook::printColumn(std::string str) const {
+void PhoneBook::printColumn(std::string str) {
     if (str.length() > 10) {
         //take first 9 chars and add a dot
         std::cout << str.substr(0, 9) << ".";

@@ -6,7 +6,7 @@
 /*   By: ameskine <ameskine@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 15:23:11 by ameskine          #+#    #+#             */
-/*   Updated: 2026/01/03 09:58:50 by ameskine         ###   ########.fr       */
+/*   Updated: 2026/01/03 15:03:31 by ameskine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ class Contact {
     void    setDarkestSecret(std::string str);
 
     // Member functions to get values (Getters)
-    std::string getFirstName() const;
-    std::string getLastName() const;
-    std::string getNickname() const;
-    std::string getPhoneNumber() const;
-    std::string getDarkestSecret() const;
+    std::string getFirstName() ;
+    std::string getLastName() ;
+    std::string getNickname() ;
+    std::string getPhoneNumber() ;
+    std::string getDarkestSecret() ;
 };
 
 #endif
