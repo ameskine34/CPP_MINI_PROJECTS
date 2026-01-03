@@ -6,7 +6,7 @@
 /*   By: ameskine <ameskine@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 15:23:11 by ameskine          #+#    #+#             */
-/*   Updated: 2026/01/02 17:40:27 by ameskine         ###   ########.fr       */
+/*   Updated: 2026/01/03 09:58:50 by ameskine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ class Contact {
         std::string _darkestSecret;
         
     public:
-    Contact();
-    
+        Contact();
     // Member functions to set values
     void    setFirstName(std::string str);
     void    setLastName(std::string str);
