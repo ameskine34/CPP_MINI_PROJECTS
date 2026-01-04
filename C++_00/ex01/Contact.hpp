@@ -6,7 +6,7 @@
 /*   By: ameskine <ameskine@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 15:23:11 by ameskine          #+#    #+#             */
-/*   Updated: 2026/01/03 15:03:31 by ameskine         ###   ########.fr       */
+/*   Updated: 2026/01/04 10:48:21 by ameskine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,12 @@ class Contact {
         
     public:
         Contact();
-    // Member functions to set values
     void    setFirstName(std::string str);
     void    setLastName(std::string str);
     void    setNickname(std::string str);
     void    setPhoneNumber(std::string str);
     void    setDarkestSecret(std::string str);
 
-    // Member functions to get values (Getters)
     std::string getFirstName() ;
     std::string getLastName() ;
     std::string getNickname() ;

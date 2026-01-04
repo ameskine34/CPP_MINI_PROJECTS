@@ -6,14 +6,13 @@
 /*   By: ameskine <ameskine@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 15:22:55 by ameskine          #+#    #+#             */
-/*   Updated: 2026/01/03 15:16:21 by ameskine         ###   ########.fr       */
+/*   Updated: 2026/01/04 09:57:49 by ameskine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PhoneBook.hpp"
 #include <iostream>
 #include <string>
-#include <cstdio>
 
 int main()
 {
@@ -29,7 +28,10 @@ int main()
             break;
         }
         if (command == "ADD")
-            book.ADD();
+        {
+            if (book.ADD())
+                break ;
+        }
         else if (command == "SEARCH")
             book.SEARCH();
         else if (command == "EXIT")
