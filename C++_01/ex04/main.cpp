@@ -5,19 +5,30 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ameskine <ameskine@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/07 11:23:43 by ameskine          #+#    #+#             */
-/*   Updated: 2026/01/10 08:14:45 by ameskine         ###   ########.fr       */
+/*   Created: 2026/01/09 17:33:53 by ameskine          #+#    #+#             */
+/*   Updated: 2026/01/10 10:57:54 by ameskine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Zombie.hpp" //Understanding lifetime.
+#include "main.hpp"
 
-int main()
+int main(int ac, char **av)
 {
-    Zombie *n_zombie = newZombie("foo"); //newZombie uses the Heap
-    randomChump("foo"); //randomChump uses the Stack
-
-    delete n_zombie;
+    std::string buffer;
+    if (ac != 4)
+        return (1);
+    std::ifstream file(av[1]);
+    if (!file.is_open())
+    {
+        std::cout << "open fails\n";
+        return 1;
+    }
+    std::string str = av[1];
+    std::string rep = ".replace";
+    std::string s1 = av[2];
+    std::string s2 = av[3];
+    std::ofstream file_out((str + rep).c_str());
+    getline(file, buffer, '\0');
+    search_file(buffer, file_out, s1, s2);
+    return 0;
 }
-//Because the memory is on the heap;
-//if we returned by value, we'd be making an unnecessary copy.

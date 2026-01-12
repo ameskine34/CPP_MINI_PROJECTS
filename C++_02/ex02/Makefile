@@ -1,5 +1,5 @@
-NAME    = Zombie
-SRCS    = main.cpp Zombie.cpp newZombie.cpp randomChump.cpp 
+NAME    = a.out
+SRCS    = main.cpp Fixed.cpp 
 OBJS    = $(SRCS:.cpp=.o)
 
 CC      = c++
