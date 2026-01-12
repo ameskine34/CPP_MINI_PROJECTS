@@ -6,7 +6,7 @@
 /*   By: ameskine <ameskine@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 15:23:11 by ameskine          #+#    #+#             */
-/*   Updated: 2026/01/04 10:48:21 by ameskine         ###   ########.fr       */
+/*   Updated: 2026/01/12 16:05:57 by ameskine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ class Contact {
     std::string getNickname() ;
     std::string getPhoneNumber() ;
     std::string getDarkestSecret() ;
+    ~Contact();
 };
 
 #endif

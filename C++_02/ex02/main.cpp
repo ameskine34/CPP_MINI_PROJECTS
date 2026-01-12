@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Zombie.hpp                                         :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ameskine <ameskine@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/07 11:23:47 by ameskine          #+#    #+#             */
-/*   Updated: 2026/01/09 09:50:04 by ameskine         ###   ########.fr       */
+/*   Created: 2026/01/12 00:08:54 by ameskine          #+#    #+#             */
+/*   Updated: 2026/01/12 12:21:30 by ameskine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ZOMBIE_HPP
-#define ZOMBIE_HPP
+#include "Fixed.hpp"
 
-#include <iostream>
-#include <string>
-
-class Zombie{
-    private:
-        std::string name;
-    public:
-        Zombie();
-        Zombie(std::string name);
-        ~Zombie();
-        void announce(void);
-};
-void    randomChump(std::string name);
-Zombie* newZombie(std::string name);
-
-#endif
+int main() 
+{
+    Fixed a;
+    Fixed const b( Fixed( 5.05f ) * Fixed( 2 ) );
+    std::cout << a << std::endl;
+    std::cout << ++a << std::endl;
+    std::cout << a << std::endl;
+    std::cout << a++ << std::endl;
+    std::cout << a << std::endl;
+    std::cout << b << std::endl;
+    std::cout << Fixed::max( a, b ) << std::endl;
+    return 0;
+}

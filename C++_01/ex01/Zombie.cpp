@@ -1,31 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Zombie.hpp                                         :+:      :+:    :+:   */
+/*   Zombie.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ameskine <ameskine@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/07 11:23:47 by ameskine          #+#    #+#             */
-/*   Updated: 2026/01/09 09:50:04 by ameskine         ###   ########.fr       */
+/*   Created: 2026/01/09 10:03:05 by ameskine          #+#    #+#             */
+/*   Updated: 2026/01/09 10:27:03 by ameskine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ZOMBIE_HPP
-#define ZOMBIE_HPP
-
 #include <iostream>
-#include <string>
+#include "Zombie.hpp"
 
-class Zombie{
-    private:
-        std::string name;
-    public:
-        Zombie();
-        Zombie(std::string name);
-        ~Zombie();
-        void announce(void);
-};
-void    randomChump(std::string name);
-Zombie* newZombie(std::string name);
+void Zombie::announce(void)
+{
+    std::cout << name << ": BraiiiiiiinnnzzzZ..." << std::endl;
+}
 
-#endif
+Zombie::Zombie()
+{
+}
+
+Zombie::Zombie(std::string name) : name(name)
+{
+}
+
+Zombie::~Zombie()
+{
+}
+
+void Zombie::setname(std::string nm)
+{
+    name = nm;
+}

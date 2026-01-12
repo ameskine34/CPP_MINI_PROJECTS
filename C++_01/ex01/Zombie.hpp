@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ameskine <ameskine@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/07 11:23:47 by ameskine          #+#    #+#             */
-/*   Updated: 2026/01/09 09:50:04 by ameskine         ###   ########.fr       */
+/*   Created: 2026/01/09 10:03:08 by ameskine          #+#    #+#             */
+/*   Updated: 2026/01/10 08:37:33 by ameskine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@ class Zombie{
         Zombie(std::string name);
         ~Zombie();
         void announce(void);
+        void setname(std::string nm);//setname is a setter function
+        //why use it? A setter is a public function whose job is:
+        //“Modify a private variable in a controlled way”
 };
-void    randomChump(std::string name);
-Zombie* newZombie(std::string name);
+Zombie* zombieHorde(int N, std::string name);
 
 #endif
