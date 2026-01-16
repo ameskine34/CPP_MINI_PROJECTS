@@ -6,7 +6,7 @@
 
 class ClapTrap
 {
-    protected:
+    protected: 
         std::string name;
         unsigned int hitPoints; //health
         unsigned int energyPoints; //staminna 

@@ -10,7 +10,7 @@ class ScavTrap : public ClapTrap
     public:
         ScavTrap();
         ScavTrap(std::string name);
-        ScavTrap(const ScavTrap& source);
+        // ScavTrap(const ScavTrap& source);
         ScavTrap& operator=(const ScavTrap& source);
         ~ScavTrap();
 
