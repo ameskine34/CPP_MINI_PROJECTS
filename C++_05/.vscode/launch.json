@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/ameskine/CPPPPPP/cpp05/ex00",
-      "program": "/home/ameskine/CPPPPPP/cpp05/ex00/build/Debug/outDebug",
+      "cwd": "/home/ameskine/goinfre/amine/C++_05/ex03",
+      "program": "/home/ameskine/goinfre/amine/C++_05/ex03/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

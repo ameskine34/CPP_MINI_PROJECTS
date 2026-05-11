@@ -1,11 +1,13 @@
 #include "Bureaucrat.hpp"
-// #include "Form.hpp"
+#include "Form.hpp"
 class Form;
 
 Bureaucrat::Bureaucrat(){
 }
 
 Bureaucrat::Bureaucrat(const std::string n, int i) : name(n), grade(i){
+    if (i < 1) throw GradeTooHighException();
+    if (i > 150) throw GradeTooLowException();
 }
 
 Bureaucrat::Bureaucrat(const Bureaucrat& other) : name(other.name), grade(other.grade){
