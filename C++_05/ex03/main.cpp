@@ -25,7 +25,7 @@ int main()
         mid.signForm(robot);
         mid.executeForm(robot);
 
-        boss.executeForm(robot); // safer success attempt
+        boss.executeForm(robot);
 
         std::cout << "\n--- PRESIDENTIAL PARDON ---\n";
         PresidentialPardonForm pardon("Arthur Dent");
@@ -34,10 +34,9 @@ int main()
         boss.executeForm(pardon);
 
         std::cout << "\n--- FAILURE TEST ---\n";
-        low.signForm(pardon);     // should fail
-        low.executeForm(pardon);  // should fail
+        low.signForm(pardon);     
+        low.executeForm(pardon);  
 
-        std::cout << "\n--- ************************************* ---\n";
         std::cout << "\n--- ************************************* ---\n";
         Intern someRandomIntern;
         AForm* rrf;

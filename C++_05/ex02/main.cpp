@@ -12,20 +12,22 @@ int main()
         Bureaucrat mid("Mid", 40);
         Bureaucrat low("Low", 150);
 
+        //------------------------------------
         std::cout << "\n--- SHRUBBERY ---\n";
         ShrubberyCreationForm shrub("home");
 
         boss.signForm(shrub);
         boss.executeForm(shrub);
 
+        //-----------------------------------
         std::cout << "\n--- ROBOTOMY ---\n";
         RobotomyRequestForm robot("Bender");
 
         mid.signForm(robot);
         mid.executeForm(robot);
+        boss.executeForm(robot); 
 
-        boss.executeForm(robot); // safer success attempt
-
+        //-------------------------------------
         std::cout << "\n--- PRESIDENTIAL PARDON ---\n";
         PresidentialPardonForm pardon("Arthur Dent");
 
@@ -33,8 +35,8 @@ int main()
         boss.executeForm(pardon);
 
         std::cout << "\n--- FAILURE TEST ---\n";
-        low.signForm(pardon);     // should fail
-        low.executeForm(pardon);  // should fail
+        low.signForm(pardon);     
+        low.executeForm(pardon);  
 
     }
     catch (std::exception &e)
