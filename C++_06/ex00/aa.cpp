@@ -1,5 +1,0 @@
-lalksddf
-adfsvrfsd
-__GCC_ATOMIC_WCHAR_T_LOCK_FREEdc
-wfd
-decltypesd
