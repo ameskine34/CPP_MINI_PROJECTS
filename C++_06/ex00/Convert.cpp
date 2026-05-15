@@ -15,19 +15,119 @@ ScalarConverter& ScalarConverter::operator=(const ScalarConverter& other){
 ScalarConverter::~ScalarConverter(){
 };
 
-void ScalarConverter::convert(const std::string s){
-    const char *n = s.c_str();
-    int i = std::strlen(n);
-    if (i > 0)
+// // int conv_int(const char *s)
+// // {
+// //     return (std::atoi(s));
+// // }
+
+// // bool ft_check_dp(const char *n)
+// // {
+// //     int i = std::strlen(n) - 1;
+// //     for (int j = 0; n[j]; j++)
+// //     {
+// //         if (std::isdigit(n[j]) && !std::isprint(conv_int(n)))
+// //         {
+// //             if (i == j)
+// //                 return (false);
+// //         }
+// //         else if (std::isdigit(n[j]) && std::isprint(conv_int(n)))
+// //         {
+// //             if (i == j)
+// //                 return (true);
+// //         };
+// //     }
+// //         return (0);
+// // }
+
+// // void ScalarConverter::convert(const std::string s){
+// //     const char *n = s.c_str();
+// //     if (!ft_check_dp(n))
+// //     {
+// //         std::cout << "char : ";
+// //         std::cout << "Non displayable" << std::endl;
+// //     }
+// //     else if (ft_check_dp(n))
+// //     {
+// //         std::cout << "char : ";
+// //         std::cout << static_cast<char>(conv_int(n)) << std::endl;
+// //     }
+// //     if (!ft_check_dp(n) || ft_check_dp(n))
+// //     {
+// //         std::cout << "int : ";
+// //         // std::cout << std::atoi(n) << std::endl;
+// //         std::cout << static_cast<int>(conv_int(n)) << std::endl;
+// //     }
+
+// // }
+
+void isCharLiteral(const char *s)
+{
+    if (std::isalpha(s[0]))
     {
-        std::cout << "char : " << std::endl;
-        for (int j = 0; n[j]; j++)
-        {
-            if(std::isdigit(n[j]) && !std::isprint(n[j]))
-            {
-                std::cout << "amine" << std::endl;
-                std::cout << "Non-Printable Char found" << std::endl;
-            }
-        }
+        std::cout << "char : " << s[0] << std::endl;
     }
-};
+    std::cout << "int : " << static_cast<int>(s[0]) << std::endl;
+    std::cout << "float : " << std::fixed << std::setprecision(2) << static_cast<float>(s[0])<< 'f' << std::endl;
+    std::cout << "double : " << std::fixed << std::setprecision(2) << static_cast<double>(s[0]) << std::endl;
+}
+
+bool isIntLiteral(const char *s)
+{
+    int i = 0;
+
+    if (s[0] == '-' || s[0] == '+')
+        i++;
+    if (!s[i])
+        return (false);
+    while (s[i])
+    {
+        if (!std::isdigit(s[i]))
+            return (false);
+        i++;
+    }
+    long num = std::strtol(s, NULL, 10);
+    if (num < INT_MIN || num > INT_MAX)
+        return (false);
+    return (true);
+}
+}
+
+void isInt(const char *s)
+{
+    int num = std::atoi(s);
+    std::cout << num << std::endl;
+    if (num < 32 || num > 126)
+    {
+        std::cout << "char : ";
+        std::cout << "Non displayable" << std::endl;
+    }
+    if (num > 31 && num < 127)
+    {
+        std::cout << "char : ";
+        std::cout << static_cast<char>(num) << std::endl;
+    }
+    if (num >= INT_MIN || num <= INT_MAX)
+    {
+        std::cout << "int : " << num << std::endl;
+    }
+    if (num < INT_MIN || num > INT_MAX)
+        std::cout << "int : " << "out of range" << std::endl;
+    std::cout << "float : " << std::fixed << std::setprecision(2) << static_cast<float>(num)<< 'f' << std::endl;
+    std::cout << "double : " << std::fixed << std::setprecision(2) << static_cast<double>(num) << std::endl;
+}
+
+void ScalarConverter::convert(const std::string s)
+{
+    const char *n = s.c_str();
+
+    if (std::strlen(n) == 1 && !std::isdigit(n[0]))
+        isCharLiteral(n);
+    else if (isIntLiteral(n))
+        isInt(n);
+    else if (isFloatLiteral(n))
+        isFloat(n);
+    else if (isDoubleLiteral(n))
+        isDouble(n);
+    else
+        isSpecial(n);
+}
