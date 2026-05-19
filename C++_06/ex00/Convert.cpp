@@ -85,17 +85,20 @@ bool isIntLiteral(const char *s)
             return (false);
         i++;
     }
-    long num = std::strtol(s, NULL, 10);
+    long num = std::strtol(s, NULL, 10); 
+    //long strtol(const char *nptr, char **endptr, int base);
+    //nptr: string to convert ,endptr: 1st found caractere , base: 10
     if (num < INT_MIN || num > INT_MAX)
+    {
+        std::cout << "out of range" << std::endl;
         return (false);
+    }
     return (true);
-}
 }
 
 void isInt(const char *s)
 {
     int num = std::atoi(s);
-    std::cout << num << std::endl;
     if (num < 32 || num > 126)
     {
         std::cout << "char : ";
@@ -110,10 +113,63 @@ void isInt(const char *s)
     {
         std::cout << "int : " << num << std::endl;
     }
-    if (num < INT_MIN || num > INT_MAX)
-        std::cout << "int : " << "out of range" << std::endl;
     std::cout << "float : " << std::fixed << std::setprecision(2) << static_cast<float>(num)<< 'f' << std::endl;
     std::cout << "double : " << std::fixed << std::setprecision(2) << static_cast<double>(num) << std::endl;
+}
+
+bool isFloatLiteral(const char *s)
+{
+    int i = 0;
+    char *end;
+    float num;
+
+    if (s[0] == '-' || s[0] == '+')
+        i++;
+    if (!s[i])
+        return (false);
+    while (s[i])
+    {
+        if (!std::isdigit(s[i]))
+        {
+            num = std::strtol(s, &end, 10);
+            if (strlen(end) > 2 || end[0] != '.'|| end[1] != 'f' )
+            {
+                std::cout << "inappropriate form" << std::endl; 
+                return (false);
+            }
+        }
+        i++;
+    }
+    if (num < FLT_MIN || num > FLT_MAX)
+    {
+        std::cout << "out of range" << std::endl;
+        return (false);
+    }
+    return (true);
+}
+
+void isFloat(const char *s)
+{
+    float value = strtof(s, NULL);
+    if (value < 32 || value > 126)
+    {
+        std::cout << "char : ";
+        std::cout << "Non displayable" << std::endl;
+    }
+    if (value > 31 && value < 127)
+    {
+        std::cout << "char : ";
+        std::cout << static_cast<char>(value) << std::endl;
+    }
+    if (value >= INT_MIN || value <= INT_MAX)
+    {
+        std::cout << "int : " << static_cast<int>(value) << std::endl;
+    }
+    if (value >= FLT_MIN || value <= FLT_MAX)
+    {
+        std::cout << "float : " << std::fixed << std::setprecision(2) << static_cast<float>(value)<< 'f' << std::endl;    
+    }
+    std::cout << "double : " << std::fixed << std::setprecision(2) << static_cast<double>(value) << std::endl;
 }
 
 void ScalarConverter::convert(const std::string s)
@@ -126,8 +182,8 @@ void ScalarConverter::convert(const std::string s)
         isInt(n);
     else if (isFloatLiteral(n))
         isFloat(n);
-    else if (isDoubleLiteral(n))
-        isDouble(n);
-    else
-        isSpecial(n);
+    // else if (isDoubleLiteral(n))
+    //     isDouble(n);
+    // else
+    //     isSpecial(n);
 }
