@@ -15,51 +15,6 @@ ScalarConverter& ScalarConverter::operator=(const ScalarConverter& other){
 ScalarConverter::~ScalarConverter(){
 };
 
-// // int conv_int(const char *s)
-// // {
-// //     return (std::atoi(s));
-// // }
-
-// // bool ft_check_dp(const char *n)
-// // {
-// //     int i = std::strlen(n) - 1;
-// //     for (int j = 0; n[j]; j++)
-// //     {
-// //         if (std::isdigit(n[j]) && !std::isprint(conv_int(n)))
-// //         {
-// //             if (i == j)
-// //                 return (false);
-// //         }
-// //         else if (std::isdigit(n[j]) && std::isprint(conv_int(n)))
-// //         {
-// //             if (i == j)
-// //                 return (true);
-// //         };
-// //     }
-// //         return (0);
-// // }
-
-// // void ScalarConverter::convert(const std::string s){
-// //     const char *n = s.c_str();
-// //     if (!ft_check_dp(n))
-// //     {
-// //         std::cout << "char : ";
-// //         std::cout << "Non displayable" << std::endl;
-// //     }
-// //     else if (ft_check_dp(n))
-// //     {
-// //         std::cout << "char : ";
-// //         std::cout << static_cast<char>(conv_int(n)) << std::endl;
-// //     }
-// //     if (!ft_check_dp(n) || ft_check_dp(n))
-// //     {
-// //         std::cout << "int : ";
-// //         // std::cout << std::atoi(n) << std::endl;
-// //         std::cout << static_cast<int>(conv_int(n)) << std::endl;
-// //     }
-
-// // }
-
 void isCharLiteral(const char *s)
 {
     if (std::isalpha(s[0]))
@@ -140,7 +95,7 @@ bool isFloatLiteral(const char *s)
         return (false);
     if (ft_strlen(s) > 18)
     {
-        std::cout << "out of range" << std::endl;
+        std::cout << "1111111111111111 out of range" << std::endl;
         return (false);
     }
     std::strtol(&s[i], &end, 10);
@@ -198,7 +153,7 @@ bool isDoubleLiteral(const char *s)
         return (false);
     if (ft_strlen(s) > 18)
     {
-        std::cout << "out of range" << std::endl;
+        std::cout << "this is in double scoop out of range" << std::endl;
         return (false);
     }
     std::strtol(&s[i], &end, 10);
@@ -219,7 +174,26 @@ bool isDoubleLiteral(const char *s)
     return (true);
 }
 
-
+void isDouble(const char *n)
+{
+    double value = strtod(n, NULL);
+    if (value < 32 || value > 126)
+    {
+        std::cout << "char : ";
+        std::cout << "Non displayable" << std::endl;
+    }
+    if (value > 31 && value < 127)
+    {
+        std::cout << "char : ";
+        std::cout << static_cast<char>(value) << std::endl;
+    }
+    if (value >= INT_MIN || value <= INT_MAX)
+    {
+        std::cout << "int : " << static_cast<int>(value) << std::endl;
+    }
+    std::cout << "double : " << std::fixed << std::setprecision(2) << static_cast<float>(value) << std::endl;
+    std::cout << "float : " << std::fixed << std::setprecision(2) << value << 'f' << std::endl;    
+}
 
 void ScalarConverter::convert(const std::string s)
 {
@@ -229,10 +203,10 @@ void ScalarConverter::convert(const std::string s)
         isCharLiteral(n);
     else if (isIntLiteral(n))
         isInt(n);
-    else if (isFloatLiteral(n))
-        isFloat(n);
     else if (isDoubleLiteral(n))
         isDouble(n);
+    else if (isFloatLiteral(n))
+        isFloat(n);
     // else
     //     isSpecial(n);
 }
