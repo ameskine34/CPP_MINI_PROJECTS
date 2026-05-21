@@ -171,24 +171,38 @@ void isDouble(const char *n)
     std::cout << "double : " << std::fixed << std::setprecision(2) << static_cast<float>(value) << std::endl;
 }
 
-const char *special[] = {"-inf", "nan", "+inf"}; 
-
-int i = 0;
-switch (special[i])
+bool isSpecial(const std::string s)
 {
-case -inf:
-    
-    break;
-
-default:
-    break;
+    const char *n = s.c_str();
+    if (s == "nan" || s == "nanf" ||
+        s == "inf" || s == "inff" ||
+        s == "+inf" || s == "+inff" ||
+        s == "-inf" || s == "-inff")
+    {
+        std::cout << "char : impossible" << std::endl;
+        std::cout << "int  : impossible" << std::endl;
+        if (s == "nan" || s == "inf" || s == "+inf" || s == "-inf")
+        {
+            std::cout << "float  : " << static_cast<float>(strtod(n, NULL)) << 'f' << std::endl;
+            std::cout << "double : " << strtod(n, NULL) << std::endl;
+        }
+        else
+        {
+            std::cout << "float  : " << strtof(n, NULL) << 'f' << std::endl;
+            std::cout << "double : " << static_cast<double>(strtof(n, NULL)) << std::endl;
+        }
+        return (true);
+    }
+    return (false);
 }
 
 void ScalarConverter::convert(const std::string s)
 {
     const char *n = s.c_str();
 
-    if (strlen(n) == 1 && !std::isdigit(n[0]))
+    if (isSpecial(s))
+        return ;
+    else if (strlen(n) == 1 && !std::isdigit(n[0]))
         isCharLiteral(n);
     else if (isIntLiteral(n))
         isInt(n);
@@ -196,8 +210,6 @@ void ScalarConverter::convert(const std::string s)
         isFloat(n);
     else if (isDoubleLiteral(n))
         isDouble(n);
-    // else if ()
-    //     isSpecial(n);
     else 
         std::cout << "inappropriate form" << std::endl;
 }
