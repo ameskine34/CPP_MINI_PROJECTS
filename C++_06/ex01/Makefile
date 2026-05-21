@@ -1,5 +1,5 @@
 NAME    = a.out
-SRCS    = Convert.cpp main.cpp
+SRCS    = Serializer.cpp main.cpp
 OBJS    = $(SRCS:.cpp=.o)
 
 CC      = c++

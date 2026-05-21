@@ -1,11 +1,6 @@
-#include "Convert.hpp"
+#include "Serializer.hpp"
 
-int main(int ac, char **av)
+int main()
 {
-    if (ac != 2)
-    {
-        std::cerr << "number of args is unvalid" << std::endl;
-        return (0);
-    }
-    ScalarConverter::convert(av[1]);
+    Data *ptr = new(Data);
 }

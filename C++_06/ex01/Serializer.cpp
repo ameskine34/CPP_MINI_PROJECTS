@@ -1,0 +1,32 @@
+#include "Serializer.hpp"
+
+struct Data
+{
+    int a;
+    std::string str;
+};
+
+Serializer::Serializer(){
+};
+
+Serializer::Serializer(const Serializer& other){
+    (void)other;
+};
+
+Serializer& Serializer::operator=(const Serializer& other){
+    (void)other;
+    return (*this);
+};
+
+Serializer::~Serializer(){
+};
+
+uintptr_t serialize(Data* ptr)
+{
+    return (reinterpret_cast<uintptr_t>(ptr));
+}
+
+Data* deserialize(uintptr_t raw)
+{
+    return (reinterpret_cast<Data*>(raw));
+}
