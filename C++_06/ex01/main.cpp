@@ -9,7 +9,6 @@ int main()
     uintptr_t raw = Serializer::serialize(ptr);     
     Data *ptr2    = Serializer::deserialize(raw);   
 
-    // verify they point to the same address
     std::cout << "original  : " << ptr  << std::endl;
     std::cout << "serialized: " << raw  << std::endl;
     std::cout << "deserialized: " << ptr2 << std::endl;
