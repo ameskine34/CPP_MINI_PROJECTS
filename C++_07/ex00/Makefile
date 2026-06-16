@@ -1,5 +1,5 @@
 NAME    = a.out
-SRCS    = whatever.cpp main.cpp
+SRCS    =  main.cpp whatever.cpp
 OBJS    = $(SRCS:.cpp=.o)
 
 CC      = c++
