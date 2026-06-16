@@ -1,24 +1,42 @@
-#include <iostream>
+// #include <iostream>
 
-template <typename T>
+// template <typename T>
 
-T my_max(T a, T b)
-{
-    return (a > b) ? a : b;
-}
+// T my_max(T a, T b)
+// {
+//     return (a > b) ? a : b;
+// }
+
+// // int main()
+// // {
+// //     std::cout << my_max(45, 20) << std::endl;
+// // }
+
+// //template is a blueprint not a code, template <typename T> make
+// //my_max a generic function that works with any data type
+// //the memory representation of the parameter is untouched a converted 
+// //copy is created to be used 
 
 // int main()
 // {
-//     std::cout << my_max(45, 20) << std::endl;
+//     // int x = 5;
+//     // double y = 10.5;
+
+//     std::cout << my_max<double>(4, 5.8) << std::endl;
 // }
 
-//template is a blueprint not a code, template <typename T> make
-//my_max a generic function that works with any data type
+// #include <iostream>
+// using namespace std;
 
-int main()
-{
-    // int x = 5;
-    // double y = 10.5;
+// template <typename R, typename T, typename U>
+// R add(T a, U b) 
+// {
+//     return a + b;
+// }
 
-    std::cout << my_max<double>(4, 5.8) << std::endl;
-}
+// int main()
+// {
+//     cout << add(10, 5.5) << endl;
+
+//     return 0;
+// }
