@@ -2,13 +2,19 @@
 
 template <typename T>
 
-const T& add(const T &a, const T &b)
+void add(const T &a, const T &b, T& res)
 {
-    return (a + b);
+    res = (a + b);
+    std::cout << res << std::endl;
 }
-
 
 int main()
 {
-    std::cout << add(5, 7) << std::endl;
+    int a = 5;
+    int b = 8;
+    int res = 0;
+    add(a, b, res);
 }
+
+//the way we write the code is to avoid the dangling issue and slicing 
+//object and also copying a huge object data
