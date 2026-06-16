@@ -25,18 +25,19 @@
 //     std::cout << my_max<double>(4, 5.8) << std::endl;
 // }
 
-// #include <iostream>
-// using namespace std;
+#include <iostream>
+using namespace std;
 
-// template <typename R, typename T, typename U>
-// R add(T a, U b) 
-// {
-//     return a + b;
-// }
+template <typename R, typename T, typename U>
+R add(T a, U b) 
+{
+    return a + b;
+}
 
-// int main()
-// {
-//     cout << add(10, 5.5) << endl;
-
-//     return 0;
-// }
+int main()
+{
+    cout << add<double>(10, 5.5) << endl;//in here we force double
+    //as return type as solution We use Function Overloading combined 
+    //with Templates, or Template Specialization.
+    return 0;
+}
