@@ -29,8 +29,8 @@ class Array{
                 if (this->add)
                     delete[] this->add;
                 this->n = other.n;
-                this->add = new T[this->n]
-                for (int i = 0; i < this->n; i++)
+                this->add = new T[this->n];
+                for (unsigned int i = 0; i < this->n; i++)
                 {
                     this->add[i] = other.add[i];
                 }
@@ -40,6 +40,20 @@ class Array{
         ~Array(){
             if (this->add)
                 delete[] this->add;
+        }
+        void adding(T* s)
+        {
+            for (unsigned int i = 0; i < this->n; i++)
+            {
+                this->add[i] = s[i];
+            }            
+        }
+        void print(void)
+        {
+            for (unsigned int i = 0; i < this->n; i++)
+            {
+                std::cout << add[i] << std::endl;
+            }
         }
 };
 
