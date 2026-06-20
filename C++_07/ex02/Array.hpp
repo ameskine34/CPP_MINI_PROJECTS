@@ -17,8 +17,20 @@ class Array{
             add = new T[n]();
             this->n = n;
         }
-        Array(const Array& other) : add(other.add), n(other.n)
-        Array& operator=(const Array& other);
+        Array(const Array& other)
+        {
+            this->add = other.add;
+            this->n = other.n;
+        }
+        Array& operator=(const Array& other)
+        {
+            if (this != &other)
+            {
+                if (this->add)
+                    delete[] this->add;
+            }
+            return (*this);
+        }
         ~Array(){
             if (this->add)
                 delete[] this->add;
