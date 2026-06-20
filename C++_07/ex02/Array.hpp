@@ -65,9 +65,19 @@ class Array{
                 std::cout << add[i] << std::endl;
             }
         }
+        T& operator[](unsigned int index)
+        {
+            if (index < 0 || index >= n)
+                throw ();
+            return (this->add[index]);
+        }
         ~Array(){
             if (this->add)
                 delete[] this->add;
+        }
+        int size(void)
+        {
+            return (n);
         }
 };
 
