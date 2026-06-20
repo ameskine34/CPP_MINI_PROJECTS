@@ -2,10 +2,14 @@
 
 int main()
 {
-    std::string s[4] = {"amine", "hicham", "oussama", "salma"};
-    Array <std::string> d(4);
+    int s[4] = {12222, 6646, 4545385 ,64534};
+    Array <int> d(4);
     d.adding(s);
     d.print();
-    Array <std::string> Ss(d);
+    Array <int> Ss(d);
     Ss.print();   
+    std::cout << "**********************" << std::endl;
+    Array <int> h(2);
+    h = d;
+    h.print();
 }

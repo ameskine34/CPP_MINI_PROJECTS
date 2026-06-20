@@ -19,8 +19,17 @@ class Array{
         }
         Array(const Array& other)
         {
-            this->add = other.add;
             this->n = other.n;
+            if (this->n > 0)
+            {
+                this->add = new T[this->n];
+                for (unsigned int i = 0; i < this->n; i++)
+                {
+                    this->add[i] = other.add[i];
+                }
+            }
+            else
+                this->add = NULL;
         }
         Array& operator=(const Array& other)
         {
@@ -28,18 +37,19 @@ class Array{
             {
                 if (this->add)
                     delete[] this->add;
-                this->n = other.n;
-                this->add = new T[this->n];
-                for (unsigned int i = 0; i < this->n; i++)
+                if (this->n > 0)
                 {
-                    this->add[i] = other.add[i];
+                    this->n = other.n;
+                    this->add = new T[this->n];
+                    for (unsigned int i = 0; i < this->n; i++)
+                    {
+                        this->add[i] = other.add[i];
+                    }
                 }
+                else
+                    this->add = NULL;
             }
             return (*this);
-        }
-        ~Array(){
-            if (this->add)
-                delete[] this->add;
         }
         void adding(T* s)
         {
@@ -54,6 +64,10 @@ class Array{
             {
                 std::cout << add[i] << std::endl;
             }
+        }
+        ~Array(){
+            if (this->add)
+                delete[] this->add;
         }
 };
 
