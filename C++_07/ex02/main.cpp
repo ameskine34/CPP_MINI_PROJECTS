@@ -6,4 +6,6 @@ int main()
     Array <std::string> d(4);
     d.adding(s);
     d.print();
+    Array <std::string> Ss(d);
+    Ss.print();   
 }
