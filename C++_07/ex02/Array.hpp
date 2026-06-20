@@ -28,6 +28,12 @@ class Array{
             {
                 if (this->add)
                     delete[] this->add;
+                this->n = other.n;
+                this->add = new T[this->n]
+                for (int i = 0; i < this->n; i++)
+                {
+                    this->add[i] = other.add[i];
+                }
             }
             return (*this);
         }
