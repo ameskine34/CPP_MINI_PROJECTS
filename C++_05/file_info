@@ -1,0 +1,23 @@
+In C++, exceptions are objects,This allows the exception to carry 
+information:
+
+The object can contain:
+
+an error message
+an error code
+a filename
+a line number
+any extra information
+
+When an exception is thrown at the run time :
+the exception object is created.
+starts searching for a catch.
+destroys all local object in the function being exited.
+transfers control to the matching catch. 
+
+*The exception object is created in a special runtime-managed *storage area*
+
+It destroys actual stack frames one by one, running destructors, until it reaches a matching catch.
+
+e.what() : is a way to retrieve infos from the exception object
+after the exception has been caught.
