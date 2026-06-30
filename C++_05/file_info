@@ -21,3 +21,26 @@ It destroys actual stack frames one by one, running destructors, until it reache
 
 e.what() : is a way to retrieve infos from the exception object
 after the exception has been caught.
+
+
+
+
+
+
+
+
+An exception is an object thrown to signal an error or unexpected behavior that cannot be handled in the immediate context.
+
+if the virtual is not there what happened is :
+the compiler chooses the function using the type of the reference (Animal&) and never checks the real object type.
+
+the role of the virtual is to check the real and actual object at runtime
+
+we have to use this :  virtual const char* what() const throw() as prototype cuz in the exception class this the same prototype so to 
+override it we need the same prototype
+
+virtual const char* what() const throw() the throw at the end meant:
+*it is called exception specification* 
+It guarantees to the compiler that this function will not throw any exceptions itself, it only returns but if we write the throw in between the brackets.
+
+e is a reference to the exception object throw 

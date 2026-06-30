@@ -53,13 +53,13 @@ class Array{
         }
         T& operator[](unsigned int index)
         {
-            if (index >= n)
+            if (index >= n || index < n)
                 throw std::out_of_range("out of range");
             return (this->add[index]);
         }
         const T& operator[](unsigned int index) const
         {
-            if (index >= n)
+            if (index >= n || index < n)
                 throw std::out_of_range("out of range");
             return (this->add[index]);
         }

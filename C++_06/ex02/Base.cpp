@@ -28,12 +28,12 @@ void identify(Base &p)
 {
     try 
     {
-        (void)dynamic_cast<A&>(p);
+        (void)dynamic_cast<A&>(p);//return a reference that i ll never use 
         std::cout << "A" << std::endl; 
         return;
     } 
     catch (std::exception &e) 
-    {}
+    {}//if it fails : throw std::bad_cast
     
     try 
     {

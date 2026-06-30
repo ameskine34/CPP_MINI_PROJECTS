@@ -39,7 +39,8 @@ int main(int, char**)
         numbers[i] = value;
         mirror[i] = value;
     }
-    //SCOPE
+    //SCOPE to test shollow copy 
+    //All three objects point to the same memory.
     {
         Array<int> tmp = numbers;
         Array<int> test(tmp);
@@ -72,8 +73,9 @@ int main(int, char**)
 
     for (int i = 0; i < MAX_VAL; i++)
     {
-        numbers[i] = rand();
+        numbers[i] = rand();//to check if modify every element by refer
+                            //not a copy (cuz if you did it by copy it create a problem)
     }
-    delete [] mirror;//
+    delete [] mirror;//clean up 
     return 0;
 }

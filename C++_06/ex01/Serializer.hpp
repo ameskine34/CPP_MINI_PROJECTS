@@ -4,7 +4,6 @@
 #include <iostream>
 #include <stdint.h>
 #include "Data.hpp"
-//unsigned integer type guaranteed to be able to hold a pointer value.
 
 class Serializer{
     private:
