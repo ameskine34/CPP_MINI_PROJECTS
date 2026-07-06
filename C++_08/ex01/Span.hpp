@@ -3,17 +3,19 @@
 
 #include <algorithm>
 #include <iostream>
+#include <vector>
 
 class Span{
     private:
         unsigned int N;
+        std::vector<int> vec;
     public:
         Span();
         Span(unsigned int N);
         Span(const Span& other);
         Span& operator=(const Span& other);
         ~Span();
-    addNumber();
+    void addNumber(int n);
     unsigned int shortestSpan();
     unsigned int longestSpan();
 };

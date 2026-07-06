@@ -18,6 +18,15 @@ Span& Span::operator=(const Span& other){
 
 Span::~Span(){
 };
-// unsigned int Span::addNumber();
-unsigned int Span::shortestSpan();
-unsigned int Span::longestSpan();
+void Span::addNumber(int n)
+{
+    if (vec.size() >= N)
+        throw "Error!!!!!!!!1";
+    vec.push_back(n);
+}
+unsigned int Span::shortestSpan(){
+
+}
+unsigned int Span::longestSpan(){
+    vec
+}
