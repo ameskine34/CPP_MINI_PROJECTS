@@ -1,22 +1,9 @@
-// #ifndef EASYFIND_HPP
-// #define EASYFIND_HPP
-
-// #include <iostream>
-
-// template <typename T>
-// int easyfind(T *num, int to_find)
-// {
-//     for(int i = 0; i < )
-// }
-
-// #endif
-
-
 #ifndef EASYFIND_HPP
-# define EASYFIND_HPP
+#define EASYFIND_HPP
 
-# include <algorithm>
-# include <stdexcept>
+#include <algorithm>
+#include <iostream>
+#include <vector>
 
 template <typename T>
 typename T::iterator easyfind(T &container, int value)
