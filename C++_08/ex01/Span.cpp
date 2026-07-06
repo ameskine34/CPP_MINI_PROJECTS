@@ -21,7 +21,7 @@ Span::~Span(){
 void Span::addNumber(int n)
 {
     if (vec.size() >= N)
-        throw "Error!!!!!!!!1";
+        throw "Error!!!!!!!!";
     vec.push_back(n);
 };
 
@@ -38,8 +38,9 @@ unsigned int Span::shortestSpan(){
     return min;
 };
 
-// unsigned int Span::longestSpan(){
-//     if (vec.size() <= 1)
-//         throw "Error!!!!!!!!";
-//     vec
-// };
+unsigned int Span::longestSpan(){
+    if (vec.size() <= 1)
+        throw "Error!!!!!!!!";
+    std::sort(vec.begin(), vec.end());
+    return vec[vec.size() - 1] - vec[0];
+};
