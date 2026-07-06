@@ -23,10 +23,23 @@ void Span::addNumber(int n)
     if (vec.size() >= N)
         throw "Error!!!!!!!!1";
     vec.push_back(n);
-}
-unsigned int Span::shortestSpan(){
+};
 
-}
-unsigned int Span::longestSpan(){
-    vec
-}
+unsigned int Span::shortestSpan(){
+    if (vec.size() <= 1)
+        throw "Error!!!!!!!!";
+    std::sort(vec.begin(), vec.end());
+    unsigned int min = vec[1] - vec[0];
+    for (size_t i = 1; i < vec.size() - 1; i++)
+    {
+        if (vec[i + 1] - vec[i] < min)
+            min = vec[i + 1] - vec[i];
+    }
+    return min;
+};
+
+// unsigned int Span::longestSpan(){
+//     if (vec.size() <= 1)
+//         throw "Error!!!!!!!!";
+//     vec
+// };

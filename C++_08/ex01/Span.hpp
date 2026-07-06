@@ -8,7 +8,7 @@
 class Span{
     private:
         unsigned int N;
-        std::vector<int> vec;
+        std::vector<unsigned int> vec;
     public:
         Span();
         Span(unsigned int N);
