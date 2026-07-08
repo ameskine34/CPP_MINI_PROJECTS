@@ -25,16 +25,16 @@ class MutantStack : public std::stack<T>
             return (*this);
         };
         iterator begin(){
-            return std::stack<T>::c.begin();
+            return (this->c.begin());
         };
         iterator end(){
-            return std::stack<T>::c.end();
+            return (this->c.end());
         };
         const_iterator begin() const{
-            return std::stack<T>::c.begin();
+            return (this->c.begin());
         };
         const_iterator end() const{
-            return std::stack<T>::c.end();
+            return (this->c.end());
         };
         ~MutantStack(){
         };
