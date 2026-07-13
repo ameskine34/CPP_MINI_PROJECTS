@@ -7,7 +7,9 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
-//for the stringstream that treat the line as stream that we can manipultate
+
+#define DATA_CSV 0
+#define INPUT_TXT 1
 
 typedef struct Data
 {

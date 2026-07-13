@@ -1,10 +1,11 @@
 #include "BitcoinExchange.hpp"
 
-bool isValidDate(const std::string& s)
+bool isValidDate(const std::string& s, int i)
 {
-    if (s.length() != 10)
-        return false;
-
+    if (i == DATA_CSV && s.length() != 10)
+        return (false);
+    if (i == INPUT_TXT && s.length() != 10)
+        return (false);
     if (s[4] != '-' || s[7] != '-')
         return false;
 
@@ -37,12 +38,14 @@ bool isValid(const std::string& s)
 {
     for (size_t i = 0; i < s.size(); i++)
     {
+        if (s[1] == '|')
+            continue;
         if (s[i] == '.' && isdigit(s[i + 1]))
             continue;
         if (!isdigit(s[i]))
             return false;
     }
-    float price = std::atoi(s.c_str());
+    float price = std::atof(s.c_str());
     if (price < 0)
         return (false);
     return (true);
@@ -67,7 +70,7 @@ int data_baseParse()
         std::string extract;
         if (std::getline(ss, extract, ',')) dd.date = extract;
         if (std::getline(ss, extract, '\n')) dd.price_num = extract;
-        if (!isValidDate(dd.date) || !isValid(dd.price_num))
+        if (!isValidDate(dd.date, 0) || !isValid(dd.price_num))
         {
             std::cout << "Error: invalid date format." << std::endl;
             return (1);
@@ -78,16 +81,13 @@ int data_baseParse()
     return (0);
 }
 
-void user_input(char *av)
+int user_input(char *av)
 {
     std::vector<Data> input_list;
     std::string line;
     std::ifstream file(av);
     if (!file.is_open())
-    {
-        std::cout << "Error: could not open file." << std::endl;
         return (1);
-    }
     if (std::getline(file, line)){
     }
     while (std::getline(file, line))
@@ -95,11 +95,21 @@ void user_input(char *av)
         Data input;
         std::stringstream ss(line);
         std::string extract;
-        if (std::getline(ss, extract, '|')) input.date = extract;
+        if (std::getline(ss, extract, ' ')) input.date = extract;
         if (std::getline(ss, extract, '\n')) input.price_num = extract;
+        const char *tmp = extract.c_str();
+        tmp++;
+        std::cout << input.date << std::endl;
+        std::cout << input.price_num << std::endl;
+        if (!isValidDate(input.date, 1) || !isValid(tmp))
+        {
+            std::cout << "33333Error: invalid input format." << std::endl;
+            return (1);
+        }
         input_list.push_back(input);
     }
     file.close();
+    return (0);
 }
 
 int main(int ac, char **av)
@@ -112,7 +122,11 @@ int main(int ac, char **av)
     }
     if (!data_baseParse())
     {
-        user_input(av[1]);
+        if(user_input(av[1]))
+        {
+            std::cout << "Error: could not open file." << std::endl;
+            return (1);
+        }
     }
     return (0);
 }
