@@ -78,6 +78,30 @@ int data_baseParse()
     return (0);
 }
 
+void user_input(char *av)
+{
+    std::vector<Data> input_list;
+    std::string line;
+    std::ifstream file(av);
+    if (!file.is_open())
+    {
+        std::cout << "Error: could not open file." << std::endl;
+        return (1);
+    }
+    if (std::getline(file, line)){
+    }
+    while (std::getline(file, line))
+    {
+        Data input;
+        std::stringstream ss(line);
+        std::string extract;
+        if (std::getline(ss, extract, '|')) input.date = extract;
+        if (std::getline(ss, extract, '\n')) input.price_num = extract;
+        input_list.push_back(input);
+    }
+    file.close();
+}
+
 int main(int ac, char **av)
 {
     std::vector<Data> input_list;
@@ -88,25 +112,7 @@ int main(int ac, char **av)
     }
     if (!data_baseParse())
     {
-        std::string line;
-        std::ifstream file(av[1]);
-        if (!file.is_open())
-        {
-            std::cout << "Error: could not open file." << std::endl;
-            return (1);
-        }
-        if (std::getline(file, line)){
-        }
-        while (std::getline(file, line))
-        {
-            Data input;
-            std::stringstream ss(line);
-            std::string extract;
-            if (std::getline(ss, extract, '|')) input.date = extract;
-            if (std::getline(ss, extract, '\n')) input.price_num = extract;
-            input_list.push_back(input);
-        }
-            file.close();
+        user_input(av[1]);
     }
     return (0);
 }
