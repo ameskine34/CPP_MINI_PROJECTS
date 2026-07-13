@@ -16,14 +16,15 @@ typedef struct Data
 }Data;
 
 
-// class BitcoinExchange
-// {
-//     private:
-//     public:
-//         BitcoinExchange();
-//         BitcoinExchange& operator=(const BitcoinExchange& other);
-//         ~BitcoinExchange();
-// };
+class BitcoinExchange
+{
+    private:
+        // std::vector<Data> data_list;
+    public:
+        BitcoinExchange();
+        BitcoinExchange& operator=(const BitcoinExchange& other);
+        ~BitcoinExchange();
+};
 
 bool isValidDate(const std::string& dateStr);
 

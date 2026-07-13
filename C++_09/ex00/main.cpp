@@ -51,7 +51,8 @@ bool isValid(const std::string& s)
 int main(int ac, char **av)
 {
     std::vector<Data> data_list;
-    std::ifstream file(av[1]);
+    // BitcoinExchange p;
+    std::ifstream file("data.csv");
     if (ac != 2 || !file.is_open())
     {
         std::cout << "Error: could not open file." << std::endl;
