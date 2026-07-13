@@ -12,7 +12,7 @@
 typedef struct Data
 {
     std::string date;
-    std::string price;
+    std::string price_num;
 }Data;
 
 

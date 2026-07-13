@@ -48,12 +48,11 @@ bool isValid(const std::string& s)
     return (true);
 }
 
-int main(int ac, char **av)
+int data_baseParse()
 {
     std::vector<Data> data_list;
-    // BitcoinExchange p;
     std::ifstream file("data.csv");
-    if (ac != 2 || !file.is_open())
+    if (!file.is_open())
     {
         std::cout << "Error: could not open file." << std::endl;
         return (1);
@@ -67,17 +66,48 @@ int main(int ac, char **av)
         std::stringstream ss(line);
         std::string extract;
         if (std::getline(ss, extract, ',')) dd.date = extract;
-        if (std::getline(ss, extract, '\n')) dd.price = extract;
-        if (!isValidDate(dd.date) || !isValid(dd.price))
+        if (std::getline(ss, extract, '\n')) dd.price_num = extract;
+        if (!isValidDate(dd.date) || !isValid(dd.price_num))
         {
             std::cout << "Error: invalid date format." << std::endl;
             return (1);
         }
         data_list.push_back(dd);
-        std::cout << dd.date << std::endl;
-        std::cout << dd.price << std::endl;
     }        
     file.close();
+    return (0);
+}
+
+int main(int ac, char **av)
+{
+    std::vector<Data> input_list;
+    if (ac != 2)
+    {
+        std::cout << "Error: could not open file." << std::endl;
+        return (1);
+    }
+    if (!data_baseParse())
+    {
+        std::string line;
+        std::ifstream file(av[1]);
+        if (!file.is_open())
+        {
+            std::cout << "Error: could not open file." << std::endl;
+            return (1);
+        }
+        if (std::getline(file, line)){
+        }
+        while (std::getline(file, line))
+        {
+            Data input;
+            std::stringstream ss(line);
+            std::string extract;
+            if (std::getline(ss, extract, '|')) input.date = extract;
+            if (std::getline(ss, extract, '\n')) input.price_num = extract;
+            input_list.push_back(input);
+        }
+            file.close();
+    }
     return (0);
 }
 
