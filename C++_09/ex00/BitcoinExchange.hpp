@@ -40,5 +40,4 @@ bool isValid(const std::string& s);
 int data_baseParse(BitcoinExchange& exchange);
 int user_input(char *av, BitcoinExchange& exchange);
 
-
 #endif

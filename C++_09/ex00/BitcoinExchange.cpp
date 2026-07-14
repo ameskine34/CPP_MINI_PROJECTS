@@ -64,8 +64,6 @@ bool isValid(const std::string& s)
 {
     for (size_t i = 0; i < s.size(); i++)
     {
-        if (std::isspace(s[i]))
-            continue;
         if (s[i] == '+' || s[i] == '-')
         {
             if (i != 0)
@@ -82,9 +80,9 @@ bool isValid(const std::string& s)
             return (false);
     }
     char *end = NULL;
-    errno = 0;
+    errno = 0; //globale int used to report error && ERANGE a macro that specify which error exactly
     double price = std::strtod(s.c_str(), &end);
-    if (errno == ERANGE || end == s.c_str() || price != price)
+    if (errno == ERANGE || end == s.c_str())
         return (false);
     while (*end != '\0')
     {
@@ -199,13 +197,13 @@ int user_input(char *av, BitcoinExchange& exchange)
         }
         size_t index = 0;
         while (index < exchange.size() && exchange.getData(index).date <= date)
-            ++index;
+            index++;
         if (index == 0)
         {
             std::cout << "Error: bad input => " << date << std::endl;
             continue;
         }
-        --index;
+        index--;
 
         std::cout << date << " => " << value << " = " << (value * std::atof(exchange.getData(index).price_num.c_str())) << std::endl;
     }
