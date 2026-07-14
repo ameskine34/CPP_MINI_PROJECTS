@@ -1,9 +1,5 @@
 #include "BitcoinExchange.hpp"
 
-#include <cerrno>
-#include <cctype>
-#include <cstdlib>
-
 bool isValidDate(const std::string& s, int i)
 {
     if (i == DATA_CSV && s.length() != 10)
@@ -17,7 +13,7 @@ bool isValidDate(const std::string& s, int i)
     {
         if (j == 4 || j == 7)
             continue;
-        if (!std::isdigit(static_cast<unsigned char>(s[j])))
+        if (!std::isdigit(s[j]))
             return (false);
     }
 
@@ -44,7 +40,7 @@ bool isValid(const std::string& s)
     std::string value = s;
     for (size_t i = 0; i < value.size(); i++)
     {
-        if (std::isspace(static_cast<unsigned char>(value[i])))
+        if (std::isspace(value[i]))
             continue;
         if (value[i] == '+' || value[i] == '-')
         {
@@ -54,11 +50,11 @@ bool isValid(const std::string& s)
         }
         if (value[i] == '.')
         {
-            if (i + 1 >= value.size() || !std::isdigit(static_cast<unsigned char>(value[i + 1])))
+            if (i + 1 >= value.size() || !std::isdigit((value[i + 1])))
                 return (false);
             continue;
         }
-        if (!std::isdigit(static_cast<unsigned char>(value[i])))
+        if (!std::isdigit(value[i]))
             return (false);
     }
     char *end = NULL;
