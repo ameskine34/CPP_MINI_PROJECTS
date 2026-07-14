@@ -30,11 +30,15 @@ class BitcoinExchange
         BitcoinExchange();
         BitcoinExchange& operator=(const BitcoinExchange& other);
         void addData(const Data& data);
-        std::vector<Data>::size_type size() const;
-        const Data& getData(std::vector<Data>::size_type index) const;
+        std::vector<Data>::size_type size();
+        const Data& getData(std::vector<Data>::size_type index);
         ~BitcoinExchange();
 };
 
-bool isValidDate(const std::string& dateStr);
+bool isValidDate(const std::string& s, int i);
+bool isValid(const std::string& s);
+int data_baseParse(BitcoinExchange& exchange);
+int user_input(char *av, BitcoinExchange& exchange);
+
 
 #endif
