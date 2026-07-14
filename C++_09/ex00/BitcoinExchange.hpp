@@ -21,12 +21,45 @@ typedef struct Data
 class BitcoinExchange
 {
     private:
-        // std::vector<Data> data_list;
+        std::vector<Data> data_list;
     public:
         BitcoinExchange();
         BitcoinExchange& operator=(const BitcoinExchange& other);
+        void addData(const Data& data);
+        std::vector<Data>::size_type size() const;
+        const Data& getData(std::vector<Data>::size_type index) const;
         ~BitcoinExchange();
 };
+
+BitcoinExchange::BitcoinExchange()
+{
+}
+
+BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& other)
+{
+    if (this != &other)
+        this->data_list = other.data_list;
+    return (*this);
+}
+
+void BitcoinExchange::addData(const Data& data)
+{
+    data_list.push_back(data);
+}
+
+std::vector<Data>::size_type BitcoinExchange::size() const
+{
+    return data_list.size();
+}
+
+const Data& BitcoinExchange::getData(std::vector<Data>::size_type index) const
+{
+    return data_list[index];
+}
+
+BitcoinExchange::~BitcoinExchange()
+{
+}
 
 bool isValidDate(const std::string& dateStr);
 

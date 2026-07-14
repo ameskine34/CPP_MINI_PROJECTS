@@ -1,5 +1,9 @@
 #include "BitcoinExchange.hpp"
 
+#include <cerrno>
+#include <cctype>
+#include <cstdlib>
+
 bool isValidDate(const std::string& s, int i)
 {
     if (i == DATA_CSV && s.length() != 10)
@@ -7,27 +11,28 @@ bool isValidDate(const std::string& s, int i)
     if (i == INPUT_TXT && s.length() != 10)
         return (false);
     if (s[4] != '-' || s[7] != '-')
-        return false;
+        return (false);
 
-    for (int i = 0; i < 10; i++)
+    for (int j = 0; j < 10; j++)
     {
-        if (i == 4 || i == 7)
+        if (j == 4 || j == 7)
             continue;
-        if (!isdigit(s[i]))
-            return false;
+        if (!std::isdigit(static_cast<unsigned char>(s[j])))
+            return (false);
     }
-    int year = std::atoi(s.substr(0,4).c_str());
-    int month = std::atoi(s.substr(5,2).c_str());
-    int day = std::atoi(s.substr(8,2).c_str());
+
+    int year = std::atoi(s.substr(0, 4).c_str());
+    int month = std::atoi(s.substr(5, 2).c_str());
+    int day = std::atoi(s.substr(8, 2).c_str());
     if (month < 1 || month > 12)
         return (false);
+
     int daysInMonth[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     if (month == 2)
     {
         bool isLeap = (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
-        if (isLeap) {
+        if (isLeap)
             daysInMonth[1] = 29;
-        }
     }
     if (day < 1 || day > daysInMonth[month - 1])
         return (false);
@@ -36,24 +41,44 @@ bool isValidDate(const std::string& s, int i)
 
 bool isValid(const std::string& s)
 {
-    for (size_t i = 0; i < s.size(); i++)
+    std::string value = s;
+    for (size_t i = 0; i < value.size(); i++)
     {
-        if (s[1] == '|')
+        if (std::isspace(static_cast<unsigned char>(value[i])))
             continue;
-        if (s[i] == '.' && isdigit(s[i + 1]))
+        if (value[i] == '+' || value[i] == '-')
+        {
+            if (i != 0)
+                return (false);
             continue;
-        if (!isdigit(s[i]))
-            return false;
+        }
+        if (value[i] == '.')
+        {
+            if (i + 1 >= value.size() || !std::isdigit(static_cast<unsigned char>(value[i + 1])))
+                return (false);
+            continue;
+        }
+        if (!std::isdigit(static_cast<unsigned char>(value[i])))
+            return (false);
     }
-    float price = std::atof(s.c_str());
+    char *end = NULL;
+    errno = 0;
+    double price = std::strtod(value.c_str(), &end);
+    if (errno == ERANGE || end == value.c_str() || price != price)
+        return (false);
+    while (*end != '\0')
+    {
+        if (!std::isspace(*end))
+            return (false);
+        ++end;
+    }
     if (price < 0)
         return (false);
     return (true);
 }
 
-int data_baseParse()
+int data_baseParse(BitcoinExchange& exchange)
 {
-    std::vector<Data> data_list;
     std::ifstream file("data.csv");
     if (!file.is_open())
     {
@@ -61,52 +86,108 @@ int data_baseParse()
         return (1);
     }
     std::string line;
-    if (std::getline(file, line)){
-    }//line skipped once line is read the cursur move to the next line
+    if (!std::getline(file, line))
+        return (1);
     while (std::getline(file, line))
     {
         Data dd;
         std::stringstream ss(line);
         std::string extract;
-        if (std::getline(ss, extract, ',')) dd.date = extract;
-        if (std::getline(ss, extract, '\n')) dd.price_num = extract;
-        if (!isValidDate(dd.date, 0) || !isValid(dd.price_num))
+
+        if (std::getline(ss, extract, ','))
+            dd.date = extract;
+        if (std::getline(ss, extract, '\n'))
+            dd.price_num = extract;
+
+        std::string date = dd.date;
+        std::string price = dd.price_num;
+        while (!date.empty() && std::isspace(date[0]))
+            date.erase(0, 1);
+        while (!date.empty() && std::isspace(date[date.size() - 1]))
+            date.erase(date.size() - 1);
+        while (!price.empty() && std::isspace(price[0]))
+            price.erase(0, 1);
+        while (!price.empty() && std::isspace(price[price.size() - 1]))
+            price.erase(price.size() - 1);
+
+        if (!isValidDate(date, DATA_CSV) || !isValid(price))
         {
             std::cout << "Error: invalid date format." << std::endl;
             return (1);
         }
-        data_list.push_back(dd);
-    }        
+        Data data;
+        data.date = date;
+        data.price_num = price;
+        exchange.addData(data);
+    }
     file.close();
     return (0);
 }
 
-int user_input(char *av)
+int user_input(char *av, BitcoinExchange& exchange)
 {
-    std::vector<Data> input_list;
-    std::string line;
     std::ifstream file(av);
     if (!file.is_open())
         return (1);
-    if (std::getline(file, line)){
-    }
+
+    std::string line;
+    if (!std::getline(file, line))
+        return (1);
     while (std::getline(file, line))
     {
         Data input;
         std::stringstream ss(line);
         std::string extract;
-        if (std::getline(ss, extract, ' ')) input.date = extract;
-        if (std::getline(ss, extract, '\n')) input.price_num = extract;
-        const char *tmp = extract.c_str();
-        tmp++;
-        std::cout << input.date << std::endl;
-        std::cout << input.price_num << std::endl;
-        if (!isValidDate(input.date, 1) || !isValid(tmp))
+
+        if (std::getline(ss, extract, '|'))
+            input.date = extract;
+        if (std::getline(ss, extract, '\n'))
+            input.price_num = extract;
+
+        std::string date = input.date;
+        std::string price = input.price_num;
+        while (!date.empty() && std::isspace(date[0]))
+            date.erase(0, 1);
+        while (!date.empty() && std::isspace(date[date.size() - 1]))
+            date.erase(date.size() - 1);
+        while (!price.empty() && std::isspace(price[0]))
+            price.erase(0, 1);
+        while (!price.empty() && std::isspace(price[price.size() - 1]))
+            price.erase(price.size() - 1);
+
+        if (!isValidDate(date, INPUT_TXT))
         {
-            std::cout << "33333Error: invalid input format." << std::endl;
-            return (1);
+            std::cout << "Error: bad input => " << date << std::endl;
+            continue;
         }
-        input_list.push_back(input);
+        if (!isValid(price))
+        {
+            if (!price.empty() && price[0] == '-')
+                std::cout << "Error: not a positive number." << std::endl;
+            else if (std::strtod(price.c_str(), NULL) > 1000)
+                std::cout << "Error: too large a number." << std::endl;
+            else
+                std::cout << "Error: bad input => " << price << std::endl;
+            continue;
+        }
+
+        double value = std::atof(price.c_str());
+        if (value > 1000)
+        {
+            std::cout << "Error: too large a number." << std::endl;
+            continue;
+        }
+        size_t index = 0;
+        while (index < exchange.size() && exchange.getData(index).date <= date)
+            ++index;
+        if (index == 0)
+        {
+            std::cout << "Error: bad input => " << date << std::endl;
+            continue;
+        }
+        --index;
+
+        std::cout << date << " => " << value << " = " << (value * std::atof(exchange.getData(index).price_num.c_str())) << std::endl;
     }
     file.close();
     return (0);
@@ -114,15 +195,16 @@ int user_input(char *av)
 
 int main(int ac, char **av)
 {
-    std::vector<Data> input_list;
+    BitcoinExchange exchange;
+
     if (ac != 2)
     {
         std::cout << "Error: could not open file." << std::endl;
         return (1);
     }
-    if (!data_baseParse())
+    if (!data_baseParse(exchange))
     {
-        if(user_input(av[1]))
+        if (user_input(av[1], exchange))
         {
             std::cout << "Error: could not open file." << std::endl;
             return (1);
@@ -130,11 +212,3 @@ int main(int ac, char **av)
     }
     return (0);
 }
-
-//file.csv (Comma-Separated Values)
-//std::stringstream why using it cuz getline 1st parameter should be
-//input stream
-//In the Gregorian calendar, a year is a leap year if:
-//It is divisible by 4, except
-//Years divisible by 100 are not leap years, except
-//Years divisible by 400 are leap years.
