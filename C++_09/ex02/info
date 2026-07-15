@@ -1,0 +1,52 @@
+**Overview**
+- **File**: `C++_09/ex02/PmergeMe.hpp` and `main.cpp` — a small utility that accepts integer arguments, stores them in both a `std::vector<int>` and a `std::deque<int>`, sorts each container and reports timing information.
+
+**PmergeMe Class**
+- **Purpose**: encapsulate parsing of program arguments, store numeric input in two container types (`std::vector<int>` and `std::deque<int>`), and perform timing + sorting to compare performance.
+
+- **Public:**
+  - `bool parseArgs(int ac, char **av)`:
+    - **Purpose**: Read CLI tokens (space-separated) from `av[1]..av[ac-1]`, validate each as a non-negative integer within `int` range, and store values in `_vec` and `_deq`.
+    - **Inputs**: program `argc`/`argv`.
+    - **Return**: `true` if at least one valid number parsed; `false` on invalid token or overflow.
+    - **Why implemented this way**: Using `std::stringstream` combined with `std::strtol` gives robust tokenization and numeric range checking in C++98. `strtol` sets `errno` on overflow; checking the `end` pointer ensures the token contained an actual number. We also reject negative numbers and values larger than `INT_MAX` per exercise constraints.
+
+  - `void processAndPrint() const`:
+    - **Purpose**: Print the input sequence (`Before:`), sort and measure time for both containers, print the sorted sequence (`After:`) (using the vector's sorted result), and display microsecond timings for `std::vector` and `std::deque` sorting.
+    - **Why implemented this way**: The exercise compares performance between two container types. We copy the containers and call `std::sort` so the original stored order is preserved. `gettimeofday` is used for microsecond resolution timing (portable for POSIX, suitable for short-running tasks). Sorting the `std::deque` uses `std::sort` on its iterators — this is allowed because `std::deque` provides random access iterators.
+
+- **Private members:**
+  - `std::vector<int> _vec;` — primary contiguous array container for the input; good locality and typical fastest sort performance.
+  - `std::deque<int> _deq;` — double-ended sequence container; used to compare performance characteristics versus vector.
+
+- **Private helpers:**
+  - `static bool isNumber(const std::string &s)`:
+    - **Purpose**: Quick check that the token is composed only of optional leading `+` and digits. This avoids attempting to parse obviously invalid tokens.
+    - **Why used**: Faster pre-check before `strtol` and also avoids accepting tokens containing stray letters or punctuation.
+
+**`main` (in `main.cpp`)**
+- **Purpose**: Minimal driver that ensures at least one argument is provided, constructs `PmergeMe`, calls `parseArgs`, and if successful calls `processAndPrint`. On parse or usage error it prints `Error` and returns non-zero.
+
+- **Why the separation**: `main` stays small and delegates parsing/processing to the `PmergeMe` class. This keeps responsibilities clear: `main` handles program lifecycle; `PmergeMe` encapsulates parsing, container management, processing and timing.
+
+**Design/Implementation Notes & Rationale**
+- **Choice of containers (`vector` vs `deque`)**: the exercise intends to show performance differences. `std::vector` is contiguous (better cache locality), while `std::deque` is segmented. Sorting a `vector` is typically faster; the program measures both to demonstrate the difference.
+
+- **Parsing strategy**: tokenization via `std::stringstream` allows users to pass arguments containing space-separated groups (e.g. `"3 5 8"` as a single argv token). `strtol` is used for numeric conversion to detect overflow (`errno == ERANGE`) and to ensure the token actually contained numeric characters (`end` pointer check). This combination is robust in C++98.
+
+- **Rejecting invalid values**: The code rejects tokens that are not numeric, negative, or out-of-range (> `INT_MAX`). This follows typical exercise constraints (non-negative integers, sane range).
+
+- **Timing**: `gettimeofday` provides microsecond resolution which is good enough to compare short operations. We compute elapsed microseconds as `(t2.tv_sec - t1.tv_sec) * 1e6 + (t2.tv_usec - t1.tv_usec)`.
+
+- **Why copy containers before sorting**: preserving the original order in `_vec` and `_deq` makes the `Before:` output meaningful and keeps object state consistent if re-used. Sorting copies lets us measure the sort time without destroying the stored order.
+
+**Potential improvements and alternatives**
+- Use `std::chrono` (C++11) for more portable and type-safe timing — but this project targets C++98 so `gettimeofday` is used.
+- If extremely accurate microbenchmarks are needed, run multiple iterations and take averages to reduce noise.
+- For very large inputs or production use, avoid copying the entire container: either sort in-place or sort a separate index array, depending on what you want to measure.
+
+**Files referenced**
+- `C++_09/ex02/PmergeMe.hpp` — contains the `PmergeMe` class described above.
+- `C++_09/ex02/main.cpp` — constructs `PmergeMe`, calls `parseArgs` and `processAndPrint`.
+
+If you want, I can extend this `info` file with annotated snippets (line numbers, exact function signatures), or convert it to `README.md` with examples and sample outputs. 
